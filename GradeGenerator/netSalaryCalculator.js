@@ -32,5 +32,4 @@ function salary(basicSalary, benefits) {
  
 //enter basic salary
 
-   console.log(10000,20000);
-   
+   console.log(2000,20000);
