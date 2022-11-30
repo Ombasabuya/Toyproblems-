@@ -1,23 +1,47 @@
+/*Challange 1-3  Instructions )
 
-function checkStudentGrade(studentMarks){
-    if (studentMarks > 79 && studentMarks <= 100) {
-        console.log("Grade: A");
-        
-      } else if (studentMarks > 60 && studentMarks <= 79) {
-        console.log("Grade : B");
+     Challenge 1:
 
-      } else if (studentMarks > 49 && studentMarks <= 59) {
-        console.log("Grade : C");
- 
-      } else if (studentMarks >= 40 && studentMarks <= 49) {
-        console.log("Grade : D");
 
-      } else if (studentMarks >= 0 && studentMarks <= 40) {
-        console.log("E");
+ Student Grade Generator (Toy Problem)
+Write a function that prompts the user to input student marks. 
+The input should be between 0 and 100. The output should correspond the correct grade, as shown below: 
 
-      } else {
-        console.log("Enter Valid marks")        
-      }
-}
+ A > 79, B - 60 to 79, C -  59 to 49, D - 40 to 49, E - less 40.*/ 
 
-//console.log(checkStudentGrade(studentMarks));
+function myGrading(score) 
+
+{
+  var gscore;
+
+  switch(true) {
+    case (score <= 100 && score >= 79):
+       gscore = 'A';
+        break;
+    case (score <= 79 && score >= 60):
+        gscore = 'B';
+         break;
+    case (score <= 59 && score >= 49):
+        gscore = 'C';
+         break;
+       case (score <= 49 && score >= 40):
+        gscore = 'D';
+         break;
+
+    case (score > 100 && score < 40):
+        gscore = 'INVALID SCORE';
+        break; 
+
+    default:
+      return 'INVALID SCORE';
+  }
+
+  return gscore;
+};
+
+console.log(myGrading(9));
+console.log(myGrading(50));
+console.log(myGrading(40));
+console.log(myGrading(70));
+console.log(myGrading(40));
+console.log(myGrading(66));
