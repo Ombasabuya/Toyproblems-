@@ -29,11 +29,11 @@ function myGrading(score)
          break;
 
     case (score > 100 && score < 40):
-        gscore = 'INVALID SCORE';
+        gscore = 'you have scored invlid grade ';
         break; 
 
     default:
-      return 'INVALID SCORE';
+      return 'you have scored invlid grade';
   }
 
   return gscore;
