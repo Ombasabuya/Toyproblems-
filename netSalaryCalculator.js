@@ -1,78 +1,65 @@
-/*
 
-Challenge 3
+//Calculates and displays all deductables and thus the net salary for an employee
+    //Gross salary = all_benefits + basic salary e.g house_allowance + hardship_allowance + risk_allowance + basic_salary
+    //taxable income = Gross pay
+    //deductions = (payee + NHIF + NSSF)
+    //Earnable pay = Gross pay - deductions e.g Gross salary - (payee + NHIF + NSSF) ==> net salary
 
-Net Salary Calculator (Toy Problem)
-
-Write a program whose major task is to calculate an individual’s Net Salary by getting the inputs of basic salary and benefits. Calculate the payee (i.e. Tax), NHIF Deductions, NSSF Deductions, gross salary, and net salary. 
-
-NB: Use KRA, NHIF, and NSSF values provided in the link below.
-
-https://www.aren.co.ke/payroll/taxrates.htm Links to an external site.
-
-Links to an external site.-  Links to an external site.Links to an external site.
-
-www.kra.go.ke/en/individual/calculate-tax/calculating-tax/payeLinks to an external site. */
-
-const prompt = require("prompt-sync")();
-let basicSalary = parseInt(prompt("Enter the basic salary: "));
-let employeeBenefits = parseInt(prompt("Enter the employee benefits: "));
-let grossSalary = parseInt(basicSalary) + parseInt(employeeBenefits);
-let tax = grossSalary * 0.2;
-function calculateNHIFDeduction(grossSalary) {
-    let deduction = 0
-    if (grossSalary < 6000) {
-        deduction = 150
-    } else if (grossSalary >= 6000 && grossSalary < 8000) {
-        deduction = 300
-    } else if (grossSalary >= 8000 && grossSalary < 12000) {
-        deduction = 400
-    } else if (grossSalary >= 12000 && grossSalary < 15000) {
-        deduction = 500
-    } else if (grossSalary >= 15000 && grossSalary < 20000) {
-        deduction = 600
-    } else if (grossSalary >= 20000 && grossSalary < 25000) {
-        deduction = 750
-    } else if (grossSalary >= 25000 && grossSalary < 30000) {
-        deduction = 850
-    } else if (grossSalary >= 30000 && grossSalary < 35000) {
-        deduction = 900
-    } else if (grossSalary >= 35000 && grossSalary < 40000) {
-        deduction = 950
-    } else if (grossSalary >= 40000 && grossSalary < 4500) {
-        deduction = 1000
-    } else if (grossSalary >= 45000 && grossSalary < 50000) {
-        deduction = 1100
-    } else if (grossSalary >= 50000 && grossSalary < 60000) {
-        deduction = 1200
-    } else if (grossSalary >= 60000 && grossSalary < 70000) {
-        deduction = 1300
-    } else if (grossSalary >= 70000 && grossSalary < 80000) {
-        deduction = 1400
-    } else if (grossSalary >= 80000 && grossSalary < 90000) {
-        deduction = 1500
-    } else if (grossSalary >= 90000 && grossSalary < 100000) {
-        deduction = 1600
-    } else {
-        deduction = 1700
-    }
-    return deduction
-}
-function calculatePayee(grossSalary) {
-    let payee = 0
-    if (grossSalary <= 24000) {
-        payee = grossSalary * 0.1
-    } else if (grossSalary > 24000 && grossSalary <= 323333) {
-        payee = grossSalary * 0.25
-    } else {
-        payee = grossSalary * 0.3
-    }
-    return payee
-}
-calculateNHIFDeduction(grossSalary);
-calculatePayee(grossSalary);
-let getNssf = grossSalary * 0.06;
-let totalDeductions = getNssf + calculateNHIFDeduction(grossSalary) + calculatePayee(grossSalary) + tax;
-let netSalary = grossSalary - totalDeductions;
-netSalary;
-console.log("Net salary is: " + netSalary);
+    const readline = require('readline');
+    const input = readline.createInterface(
+        {
+            input: process.stdin,
+            output: process.stdout
+        }
+    );
+    
+    input.question("What is your Gross Salary?\n Note: The gross salary is a total of your basic pay and all benefits\n", function (gross_pay){
+        // console.log(`your gross salry is: ${gross_pay}`);
+        let paye;
+        let extra_taxable_pay;
+        let nhif;
+        let nssf= 200;
+        let total_deductions;
+        let net_salary;
+        if (gross_pay < 24001){
+            paye = gross_pay * 0.1;
+        }else if (gross_pay < 32334){
+            paye = 2400;
+            extra_taxable_pay = gross_pay - 24000
+            paye = (extra_taxable_pay * 0.25) + paye;
+        }else {
+            paye = 4483;
+            extra_taxable_pay = gross_pay - 32333;
+            paye = (extra_taxable_pay * 0.30) + paye;       
+        }
+        if (gross_pay < 6000){
+            nhif = 150;
+        }else if(gross_pay < 8000){
+            nhif = 300;
+        }else if(gross_pay < 12000){
+            nhif = 400;
+        }else if(gross_pay < 15000){
+            nhif = 500;
+        }else if(gross_pay < 20000){
+            nhif = 600;
+        }else if(gross_pay < 2500){
+            nhif = 700;
+        }else if(gross_pay < 30000){
+            nhif = 850;
+        }
+        else if(gross_pay > 35000){
+            nhif = 900;
+        } else {
+            nhif = 950
+        }
+    
+        total_deductions = nhif + paye + nssf;
+        net_salary = gross_pay - total_deductions;
+        process.stdout.write(`Your gross pay is Ksh: ${gross_pay}\n`);
+        process.stdout.write(`Your P.A.Y.E is Ksh: ${paye}\n`);
+        process.stdout.write(`Your NHIF deduction pay is Ksh: ${nhif}\n`);
+        process.stdout.write(`Your standard NSSF deduction is Ksh: ${nssf}\n`);    
+        process.stdout.write(`Your Total deduction amount to Ksh: ${total_deductions}\n`);
+        process.stdout.write(`Your Net Salary is Ksh: ${net_salary}\n`);    
+        input.close();
+    });

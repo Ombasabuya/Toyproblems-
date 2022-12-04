@@ -11,8 +11,6 @@ let demeritPoints = 0;
 let speedTracker = 0;
 
 function speedDetector(speed){
-    //validate
-
     if (speed <=70){
         console.log("Speed Ok");
     }else{ 
